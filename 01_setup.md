@@ -19,13 +19,13 @@ ssh -l ${USER} ${BASTION_HOST}
 ```
 
 #### Step 2 - OpenShift Login
-Fire up another browser tab and connect to the OpenShift Web Console
+Fire up another browser tab and connect to the OpenShift Web Console.
 
-Enter your username and password
+Enter your username and password.
 
-In the top right, click the username dropdown and select `Copy login command`
+In the top right, click the username dropdown and select `Copy login command`.
 
-In the newly opened tab, click `Display Token`
+In the newly opened tab, click `Display Token`.
 
 Copy the entire `oc login --token=` line and paste it into your bastion host command line:
 ```
