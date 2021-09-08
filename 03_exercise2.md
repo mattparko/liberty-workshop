@@ -10,8 +10,8 @@ We will now start to explore some additional management and troubleshooting feat
 
 In this exercise we will:
 1. Explore the out-of-the-box monitoring and dashboards
-1. Create and export an Open Liberty dump
-1. Create and export an Open Liberty trace
+1. Create an Open Liberty dump using the operator
+1. Create an Open Liberty trace using the operator
 
 #### Step 1
 Let's kick things off by generating some load against out application. The following commands will fetch the application's route name (URL) and then execute 1000 `curl` requests against it:
@@ -31,9 +31,77 @@ In the left pane, select Monitoring. Explore the various dashboards and options,
 Click on a dashboard (or select the Metrics tab) to get more detailed views. Click on Show PromQL to see the Prometheus query used for metric collection. You can even temporarily edit the query and re-run it.
 
 #### Step 3
+We will now create and export a Liberty dump with the assistance of the Open Liberty Operator.
 
+First up, get the application pod name and create environment variables:
+```bash
+export PODNAME=$(oc get pod | grep -i demo-app | awk '{print $1}')
+
+export NAMESPACE=$USER
+```
+
+Now create a new Open Liberty Dump resource using the operator:
+```bash
+echo "apiVersion: openliberty.io/v1beta1
+kind: OpenLibertyDump
+metadata:
+  name: example-dump
+  labels:
+    app: frontend
+spec:
+  include:
+    - heap
+    - thread
+    - system
+  podName: $PODNAME" | oc apply -n $NAMESPACE -f -
+```
+
+#### Step 4
+Once the Liberty dump has been created when copy it out of the pod onto local storage. The dump only takes a few seconds to complete in this sample application, but you can check the status by running:
+```bash
+oc get openlibertydump example-dump -o yaml
+```
+
+You should see a status entry with `type: Completed` as well as the dump file location / path.
+
+You can export the dump file from the pod like so:
+```bash
+oc cp $NAMESPACE/$PODNAME:/serviceability/$NAMESPACE/$PODNAME .
+```
+
+Feel free to `unzip` the dump file and explore it.
+
+Clean up by deleting the Open Liberty Dump resource and the dump file:
+```bash
+oc delete openlibertydump example-dump
+
+oc exec $PODNAME -- rm -rf /serviceability/$NAMESPACE/$PODNAME
+```
+
+#### Step 5
+Now let's create a Liberty trace with the help of the operator. This is very similar to the steps taken to create a Liberty dump, so let's get straight into it:
+```bash
+# Create the trace
+echo "apiVersion: openliberty.io/v1beta1
+kind: OpenLibertyTrace
+metadata:
+  name: example-trace
+  labels:
+    app: frontend
+spec:
+  podName: $PODNAME
+  traceSpecification: '*=info:com.ibm.ws.webcontainer*=all'" | oc apply -n $NAMESPACE -f -
+
+# Validate the trace
+oc get openlibertytraces
+
+# See the trace files
+oc exec $PODNAME -- ls /serviceability/$NAMESPACE/$PODNAME
+```
+
+Read more on observability using the Open Liberty operator here: https://github.com/OpenLiberty/open-liberty-operator/blob/master/doc/observability-deployment.adoc
 
 #### Stretch Goal
-
+You may have noticed we did not export the Liberty trace files. How would you go about doing that? Is it possible to view the files without exporting them?
 
 [Previous Exercise](exercise01) / [Next Exercise](exercise03)
