@@ -2,7 +2,7 @@
 layout: page
 permalink: /liberty-workshop/setup
 ---
-Environment Setup
+__Environment Setup__
 
 The instructor should have already provisioned the cluster using the guide here: https://github.com/mattparko/liberty-workshop-setup
 
