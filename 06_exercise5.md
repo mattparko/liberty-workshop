@@ -4,7 +4,7 @@ permalink: /liberty-workshop/exercise05
 ---
 __Exercise 5__
 
-OpenShift GitOps
+Container Customisation
 
 
 

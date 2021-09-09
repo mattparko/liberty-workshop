@@ -1,12 +1,10 @@
 ---
 layout: page
-permalink: /liberty-workshop/exercise05
+permalink: /liberty-workshop/exercise06
 ---
-__Exercise 5__
+__Exercise 6__
 
-Tomcat to Liberty Pipeline
-
-
+OpenShift GitOps
 
 
 

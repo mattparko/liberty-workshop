@@ -4,7 +4,8 @@ permalink: /liberty-workshop/exercise04
 ---
 __Exercise 4__
 
-Container Customisation
+Tomcat to Liberty Pipeline
+
 
 
 
