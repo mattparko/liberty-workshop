@@ -10,7 +10,8 @@ We'll again be using the Petclinic sample application over the next few exercise
 
 In this exercise we will:
 1. Explore a Source-to-Image (S2I) build
-1. 
+1. Check the status of an in-flight build
+1. Create a route to expose our application externally
 
 #### Step 1
 Clone the Spring Petclinic project and push it into your Gitea repository:
@@ -84,7 +85,7 @@ oc expose service petclinic
 oc get routes
 ```
 
-#### Step 6
+#### Stretch Goal
 You have exposed your application using an insecure HTTP endpoint. How could you utilise the cluster's TLS certificate instead?
 
 Hints:

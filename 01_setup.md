@@ -33,7 +33,9 @@ Copy the entire `oc login --token=` line and paste it into your bastion host com
 
 Logged into "https://api.openshift.example.com:6443" as "user1" using the token provided.
 
-Using project "default".
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
 ```
 
 [Next Exercise](exercise01)
