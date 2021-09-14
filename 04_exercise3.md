@@ -6,7 +6,7 @@ __Exercise 3__
 
 Now that we have explored the Open Liberty operator, let's take a look at some of features of the OpenShift platform - especially around managing application deployments.
 
-We'll again be using the Petclinic sample application over the next few exercises but this time, instead of using an existing container image with the application baked in, we'll look at what's required to build that image ourselves. This is much more similar to what will be required in your organisation, where you may be tasked to take some source code or an application binary and package it inside a container.
+We'll again be using the Petclinic sample application over the next few exercises but this time, instead of using an existing container image with the prebuilt application baked in, we'll look at what's required to build that image ourselves. This is much more similar to what will be required in your organisation, where you may be tasked to take some source code or an application binary and package it inside a container.
 
 In this exercise we will:
 1. Explore a Source-to-Image (S2I) build

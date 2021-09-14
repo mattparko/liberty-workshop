@@ -4,9 +4,9 @@ permalink: /liberty-workshop/exercise05
 ---
 __Exercise 5__
 
-Container Customisation
+OpenShift Pipelines
 
-
+- Pipeline deploy to test?
 
 
 

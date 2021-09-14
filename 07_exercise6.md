@@ -6,7 +6,7 @@ __Exercise 6__
 
 OpenShift GitOps
 
-
+- GitOps deploy to prod
 
 
 [Previous Exercise](exercise05)
