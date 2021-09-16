@@ -87,7 +87,7 @@ We'll let the Liberty operator do the hard work again:
 ```bash
 export NAMESPACE=${USER}-petclinic-dev
 
-oc new-project $NAMESPACE
+oc project $NAMESPACE
 
 echo "apiVersion: openliberty.io/v1beta1
 kind: OpenLibertyApplication
