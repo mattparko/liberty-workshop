@@ -81,7 +81,9 @@ podman push ${REGISTRY_URL}/${USER}/petclinic:v1.0.0
 ```
 
 #### Step 4
-Action time! Let's check out our newly optimised Liberty application. We'll let the Liberty operator do the hard work, but this time we'll deploy into a specific namespace dedicated for application development:
+Action time! Let's check out our newly optimised Liberty application.
+
+We'll let the Liberty operator do the hard work again:
 ```bash
 export NAMESPACE=${USER}-petclinic-dev
 
@@ -90,13 +92,16 @@ oc new-project $NAMESPACE
 echo "apiVersion: openliberty.io/v1beta1
 kind: OpenLibertyApplication
 metadata:
-  name: petclinic
+  name: liberty-petclinic
 spec:
   expose: true
   applicationImage: ${REGISTRY_URL}/${USER}/petclinic:v1.0.0
   replicas: 1" | oc apply -n $NAMESPACE -f -
 ```
 
+#### Stretch Goal
+You should now have two Liberty applications running in the same namespace. Set up a new route that splits incoming traffic between the two application, effectively simulating a blue-green deployment. Name the route whatever you would like and weight the traffic to each application version however you see fit.
 
+__Hint:__ use the OpenShift web console for this one, and make sure you are in the "Administrator" view (i.e. not the "Developer" view).
 
 [Previous Exercise](exercise03) / [Next Exercise](exercise05)
