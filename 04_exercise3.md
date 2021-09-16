@@ -88,7 +88,7 @@ oc get routes
 #### Stretch Goal
 You have exposed your application using an insecure HTTP endpoint. How could you utilise the cluster's TLS certificate instead?
 
-Hints:
+__Hints:__
 * `oc create route --help`
 * `oc create route edge --help`
 
