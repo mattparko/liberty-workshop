@@ -5,8 +5,7 @@ permalink: /liberty-workshop/exercise06
 __Exercise 6__
 
 OpenShift Pipelines
-
-- Pipeline deploy to test?
+- Pipeline deploy to test and then prod
 
 With our Petclinic application optimised for Liberty and manually deployed, let's take a look at some automated approaches to help reduce repetition and toil. We're going to create a CI/CD workflow using a feature called OpenShift Pipelines, which itself is based on the upstream open source project - Tekton.
 
@@ -52,5 +51,10 @@ oc new-project $NAMESPACE
 ```
 
 Remember though that namespaces are separate project, with separate roles, permissions, etc. So we will also need to allow
+
+#### Stretch Goal
+Go have some fun!
+
+Experiment, try out new ideas, try to break something (preferably not your colleagues namespaces though). Now is the time to let your curiosity run wild.
 
 [Previous Exercise](exercise05)
