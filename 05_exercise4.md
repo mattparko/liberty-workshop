@@ -4,8 +4,6 @@ permalink: /liberty-workshop/exercise04
 ---
 __Exercise 4__
 
-Tomcat to Liberty + Container Customisation
-
 In this exercise we will spend some time exploring, building, and customising container images.
 
 Once again we'll use the Petclinic application, though of course with another subtle twist. This time, we will take a prebuilt application (a fat JAR with a Tomcat server built in), optimise it for running on Liberty, and bake it into an image ready for deployment. While we do this, we'll also apply some custom security hardening to our builder image.
@@ -100,7 +98,7 @@ spec:
 ```
 
 #### Stretch Goal
-You should now have two Liberty applications running in the same namespace. Set up a new route that splits incoming traffic between the two application, effectively simulating a blue-green deployment. Name the route whatever you would like and weight the traffic to each application version however you see fit.
+You should now have two Liberty applications running in the same namespace. Set up a new route that splits incoming traffic between the two applications, effectively simulating a blue-green deployment. Name the route whatever you would like and weight the traffic to each application version however you see fit.
 
 __Hint:__ use the OpenShift web console for this one, and make sure you are in the "Administrator" view (i.e. not the "Developer" view).
 
