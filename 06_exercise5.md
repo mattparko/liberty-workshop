@@ -4,10 +4,18 @@ permalink: /liberty-workshop/exercise05
 ---
 __Exercise 5__
 
-OpenShift GitOps
+With our application now deployed into Dev, let's have a look at an alternative method of deployment for production. We will look to apply the ideals of GitOps, where the source of truth for our environment is stored in Git, and the environment continuously converges on this desired state.
 
-- GitOps deploy to prod
+To do so, we will exploit the declarative nature of Kubernetes using a tool called OpenShift GitOps, which is based on the upstream project ArgoCD.
 
-<< Should I swap this order with Pipelines (Exercise 5) so that Prod is already created?? >>
+In this exercise we will:
+1. 
+1. 
+1. 
+
+#### Step 1
+
+
+
 
 [Previous Exercise](exercise04) / [Next Exercise](exercise06)
