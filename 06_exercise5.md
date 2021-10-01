@@ -93,7 +93,12 @@ spec:
       enabled: true" | oc apply -n $NAMESPACE -f -
 ```
 
-Once complete, you should have a functional ArgoCD instance. Grab the route (you know how right?!), open it in a browser, log in and have a poke around.
+Once complete, you should have a functional ArgoCD instance. Grab the route (you know how right?!) and open it up in a browser. To log in we need the admin password. This is stored in a Kubernetes secret. Retrieve it with the following command:
+```bash
+oc get secrets argocd-cluster -o jsonpath='{.data.admin\.password}' | base64 -d && echo
+```
+
+Use this password, along with the username `admin` to log in.
 
 You could define your Petclinic project and application via this web console, but we like things stored as code, and using the ArgoCD Operator we can easily do exactly that.
 
@@ -158,6 +163,8 @@ Now head back over to the ArgoCD console. In the previous steps, we set up ArgoC
 Once complete, confirm that your Liberty application now has two running pods.
 
 #### Stretch Goal
-<TODO>
+There's no stretch goal for this exercise. Feel free to experiment and poke around, but consider the next exercise in its entirety a stretch goal - it's a doozy!
+
+Exercise 6 ties together everything we've done so far using a CI/CD pipeline. Good luck!
 
 [Previous Exercise](exercise04) / [Next Exercise](exercise06)
