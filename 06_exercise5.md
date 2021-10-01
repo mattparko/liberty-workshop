@@ -163,7 +163,7 @@ Now head back over to the ArgoCD console. In the previous steps, we set up ArgoC
 Once complete, confirm that your Liberty application now has two running pods.
 
 #### Stretch Goal
-There's no stretch goal for this exercise. Feel free to experiment and poke around, but consider the next exercise in its entirety a stretch goal - it's a doozy!
+Consider the next exercise in its entirety a stretch goal - it's a doozy!
 
 Exercise 6 ties together everything we've done so far using a CI/CD pipeline. Good luck!
 

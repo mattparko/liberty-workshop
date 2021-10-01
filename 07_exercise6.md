@@ -147,9 +147,9 @@ spec:
   - name: DEPLOY_TO_PROD
     value: "true"
   - name: PROD_GITOPS_REPO
-    value: git@${<TODO>}/petclinic-argocd.git
+    value: ${GITEA_URL}/${USER}/petclinic-prod.git
   - name: PROD_LIBERTY_MANIFEST
-    value: ./prod/petclinic-olapp.yaml
+    value: ./petclinic-olapp.yaml
   - name: PROD_GITOPS_USER
     value: $USER
   - name: PROD_GITOPS_EMAIL
@@ -176,6 +176,8 @@ oc create -f ~/my-pipeline-run.yml
 ```
 
 Jump into the web console to watch the progress of your pipeline run. Make sure you are on the correct project (`<USER>-pipelines`).
+
+Keep an eye on your test and prod namespaces for updates too.
 
 #### Stretch Goal
 Go have some fun!
