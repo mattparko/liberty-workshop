@@ -40,6 +40,23 @@ spec:
       storage: 2Gi" | oc apply -n $NAMESPACE -f -
 ```
 
+Lastly, as we are going to use Tekton to update our production Git repository directly, we need to include our git credentials. This example uses HTTP basic auth, but this is **strongly** discouraged. It is far better to create a deploy key and use ssh key authentication.
+
+Create the secret, but be careful with the substitution of the Gitea URL. Notice that in the `.git-credentials` section the URL is split as the username and password are inserted:
+```bash
+echo "kind: Secret
+apiVersion: v1
+metadata:
+  name: git-secret
+type: Opaque
+stringData:
+  .gitconfig: |
+    [credential "https://${GITEA_HOSTNAME}"]
+      helper = store
+  .git-credentials: |
+    https://${USER}:${PASS}@${GITEA_HOSTNAME}" | oc apply -n $NAMESPACE -f -
+```
+
 #### Step 2
 Next we are going to create our Tekton pipeline. A pipeline is made up of tasks, with both the pipeline and the tasks defined in YAML (of course). You can learn more about Tekton from the [official docs](https://docs.openshift.com/container-platform/4.8/cicd/pipelines/understanding-openshift-pipelines.html). There is also a handy comparison between Tekton and Jenkins concepts for those more familiar with Jenkins [here](https://docs.openshift.com/container-platform/4.8/cicd/jenkins-tekton/migrating-from-jenkins-to-tekton.html).
 
@@ -47,9 +64,9 @@ The Tekton YAML manifests have been created already and are stored in GitHub. Cl
 ```bash
 cd ~
 
-git clone <TODO>
+git clone https://github.com/mattparko/liberty-workshop-extras
 
-cd <TODO>
+cd liberty-workshop-extras/petclinic-pipelines
 ```
 
 Feel free to explore the manifests.
@@ -66,7 +83,7 @@ Once complete, create the Tekton pipeline:
 oc apply -f pipeline-spring-tomcat-to-liberty.yaml -n $NAMESPACE
 ```
 
-#### Step X
+#### Step 3
 Now we are going to set up our destination namespace. This is where our Tekton pipeline will deploy our application.
 
 Create the namespace:
@@ -81,7 +98,7 @@ Remember though that namespaces are separate project, with separate roles, permi
 oc policy add-role-to-user edit system:serviceaccount:${USER}-pipelines:pipeline --rolebinding-name=pipeline-edit -n $NAMESPACE
 ```
 
-#### Step X
+#### Step 4
 We are almost ready to execute our pipeline.
 
 OpenShift Pipelines expose a number of variables allowing you to reuse the pipeline with different inputs. When you execute a pipeline, an object known as a PipelineRun is created, which contains all of our populated input variables. Because the PipelineRun is just another Kubernetes object, this allows us to define our own PipelineRun using a YAML manifest, which is then used to execute the pipeline.
@@ -145,14 +162,14 @@ spec:
   - name: app-source
     persistentVolumeClaim:
       claimName: workspace-pvc
-  - name: ssh-creds
+  - name: git-credentials
     secret:
-      secretName: github-public-demo-deploy-key
+      secretName: git-secret
   - name: git-cli-working-dir
     emptydir: {}" > ~/my-pipeline-run.yml
 ```
 
-#### Step X
+#### Step 5
 Now go ahead and execute the pipeline!
 ```bash
 oc create -f ~/my-pipeline-run.yml
