@@ -69,7 +69,14 @@ You can export the dump file from the pod like so:
 oc cp $NAMESPACE/$PODNAME:/serviceability/$NAMESPACE/$PODNAME .
 ```
 
-Feel free to `unzip` the dump file and explore it.
+Feel free to unpack the dump file and explore it:
+```bash
+mkdir dump
+
+unzip *.zip -d dump/
+
+ls -l dump/
+```
 
 Clean up by deleting the Open Liberty Dump resource and the dump file:
 ```bash
