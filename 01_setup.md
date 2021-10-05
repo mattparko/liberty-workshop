@@ -4,11 +4,11 @@ permalink: /liberty-workshop/setup
 ---
 __Environment Setup__
 
-The instructor should have already provisioned the cluster using the guide here: https://github.com/mattparko/liberty-workshop-setup
+The instructor should have already provisioned the cluster using the guide here: [Liberty Workshop Setup](https://github.com/mattparko/liberty-workshop-setup)
 
 First up, make sure you have the Etherpad link from the instructor. The Etherpad allows you to pick a username and also has a list of important links and passwords.
 
-All instructions from here on use the bash environment variable to reference these links and users. Make sure you substitute them with the proper information whenever you come across them - or add them to your environment variables!
+All instructions from here on use bash environment variables to reference these links and users. Make sure you substitute them with the proper information whenever you come across them - or add them to your environment variables!
 
 #### Step 1 - Bastion Host
 The bastion host is a Linux VM that includes all tools required to complete the workshop (like the OpenShift CLI and git tools). It is not mandatory for you to use the bastion host, but it might make things easier and cleaner for you.
@@ -36,6 +36,8 @@ Logged into "https://api.openshift.example.com:6443" as "user1" using the token 
 You don't have any projects. You can try to create a new project, by running
 
     oc new-project <projectname>
+
+Welcome! See 'oc help' to get started.
 ```
 
 [Next Exercise](exercise01)
