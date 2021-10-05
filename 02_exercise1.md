@@ -40,8 +40,10 @@ spec:
       storage: 1Gi" | oc apply -n $NAMESPACE -f -
 ```
 
+You can view all persistent volume claims in your namespace with the command `oc get pvc`
+
 #### Step 3
-Deploy an existing sample Open Liberty application using the Open Liberty Operator.
+Now let's deploy a sample Open Liberty application using the Open Liberty Operator. This deployment will use an existing container image with a sample Liberty application pre-baked into it.
 ```bash
 echo "apiVersion: openliberty.io/v1beta1
 kind: OpenLibertyApplication
@@ -77,15 +79,23 @@ oc get replicasets
 oc get secrets
 oc get routes
 ```
-Follow the URL found in the route to see your deployed sample application.
+
+Follow the URL found in the route to see your deployed sample application. If you see an error page, just be patient - your application is likely still being deployed. Feel free to view the logs in the Liberty container:
+```bash
+oc get pods
+
+oc logs <demo-app pod name>
+```
+
+Head over to the web console and explore your application.
 
 #### Step 5
-Try to delete some resources. Wait and watch to see what happens:
+Try to delete some resources. Wait and watch the topology view in the web console to see what happens:
 ```bash
 oc delete deployment demo-app
 oc delete route demo-app
 ```
-Why are they not being deleted properly? (Hint: what is looking after your Liberty application?)
+Why are they not being deleted properly? (Hint: what is looking after your Liberty application and all of its components?)
 
 #### Stretch Goal
 Try to scale up the number of deployed pods in your application. You can do this via the Web Console, or with a command like:
