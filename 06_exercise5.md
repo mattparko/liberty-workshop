@@ -61,6 +61,8 @@ spec:
   replicas: 1" > petclinic-olapp.yml
 ```
 
+Notice there is nothing particularly new about these resources - they are very similar to the persistent volume and Open Liberty application created in earlier exercises. The difference now is that we not created the resources in our cluster - we have simply saved their definitions into a text file.
+
 Now, commit and push your changes into git:
 ```bash
 git add petclinic-serviceability-pvc.yml petclinic-olapp.yml
@@ -73,11 +75,11 @@ git push
 #### Step 3
 Now that we have our application's source of truth defined in Git, it is time to set up ArgoCD to work its magic. We will be using the ArgoCD operator to deploy and manage our ArgoCD instances and projects.
 
-We are going to take a couple of shortcuts here with a two main goals in mind:
+We are going to take a couple of shortcuts here with two main goals in mind:
 * Simplify the deployment and configuration
 * Give everyone an individual ArgoCD instance, allowing the more adventurous to experiment without impacting others
 
-In this step, we will deploy an individual ArgoCD instance in our production namespace, alongside our application. In a typical production environment, there will likely be a single "master" ArgoCD server in a protected administrative namespace.
+In this step, we will deploy an individual ArgoCD instance in our production namespace, alongside our application. In a typical production environment, there will likely be a single "master" ArgoCD server in a protected administrative namespace - potentially even a separate management cluster.
 
 First, create your ArgoCD instance:
 ```bash
@@ -100,7 +102,7 @@ oc get secrets argocd-cluster -o jsonpath='{.data.admin\.password}' | base64 -d 
 
 Use this password, along with the username `admin` to log in.
 
-You could define your Petclinic project and application via this web console, but we like things stored as code, and using the ArgoCD Operator we can easily do exactly that.
+You could define your Petclinic project and application via ArgoCD's web console, but we like things stored as code and using the ArgoCD Operator we can easily do exactly that.
 
 Define your Petclinic project, which is essentially a "namespace" in ArgoCD. The project definition includes a list of "allowed" git sources and destination clusters/namespaces. Pay attention to those environment variables!
 ```bash
@@ -138,12 +140,12 @@ spec:
 
 Jump back into the ArgoCD web console and watch your changes take place.
 
-Once your Petclinic application is synchronised, have a quick explore of the resources (pods, services, routes, volumes, etc) in the prod namespace. It should all feel very familiar since you've deployed this before. The major difference now is that you defined your Open Liberty application entirely in Git and let the cluster take care of the rest. We'll further explore what this means in practice in the next step.
+Once your Petclinic application is synchronised, have a quick explore of the OpenShift resources (pods, services, routes, volumes, etc) in your prod namespace. It should all feel very familiar since you've deployed this before. The major difference now is that you defined your Open Liberty application entirely in Git and let the cluster take care of the rest. We'll further explore what this means in practice in the next step.
 
 #### Step 4
 Now it's time to make a change to our source of truth. This would likely be a new feature or patched version of our Petclinic application, but let's save that for the next exercise.
 
-Here, will make a very simple change and increase the number of pods in our application.
+Here, we will make a very simple change and increase the number of pods in our application.
 
 Edit your Open Liberty application and increase the number of replicas to 2:
 ```bash
@@ -161,6 +163,8 @@ git push
 Now head back over to the ArgoCD console. In the previous steps, we set up ArgoCD to sync automatically and every 30 seconds. Give it a moment and you will see your application start to synchronise, converging on the desired state defined in Git.
 
 Once complete, confirm that your Liberty application now has two running pods.
+
+What you just achieved was a change in production via nothing but a Git commit and push. Combine this with a solid CI pipeline and both automated and manual approval gates, suddenly your entire release and lifecycle management processes just became a whole lot easier for all involved.
 
 #### Stretch Goal
 Consider the next exercise in its entirety a stretch goal - it's a doozy!
