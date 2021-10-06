@@ -14,13 +14,15 @@ In this exercise we will:
 1. Create a route to expose our application externally
 
 #### Step 1
-Clone the Spring Petclinic project and push it into your Gitea repository:
+Clone the source code for the Petclinic application and push it into your Gitea repository:
 ```bash
 export GITEA_URL=<Gitea URL from Etherpad>
 
 git clone https://github.com/spring-projects/spring-petclinic
 
-git remote set-url origin https://${GITEA_URL}/${USER}/spring-petclinic
+cd spring-petclinic
+
+git remote set-url origin ${GITEA_URL}/${USER}/spring-petclinic
 
 git push
 ```
@@ -37,7 +39,7 @@ Now, create a new project in OpenShift. This is where we will build and deploy o
 ```bash
 export NAMESPACE=${USER}-petclinic-dev
 
-oc new-project ${NAMESPACE}
+oc new-project $NAMESPACE
 ```
 
 #### Step 3
@@ -45,19 +47,19 @@ This is where things start to get interesting!
 
 In this next step we are going to ask OpenShift to create an application for us, however best it sees fit. You can provide as much or as little guidance here and the platform will decide on the best build strategy. Probably not the way you would deploy an application into production, but an excellent way to get developers started as quickly as possible.
 ```bash
-oc new-app --name=petclinic registry.access.redhat.com/ubi8/openjdk-11~https://${GITEA_URL}/${USER}/spring-petclinic#development
+oc new-app --name=petclinic registry.access.redhat.com/ubi8/openjdk-11~${GITEA_URL}/${USER}/spring-petclinic#development
 ```
 
 Let's explain what is happening here:
 1. `oc new-app` creates all of the components you need for an OpenShift application, whether from source code, binaries, templates, or images.
 1. `--name=petclinic` gives our application a name (this is optional - OpenShift will make up a name based on other info, like the git repo name)
 1. `registry.access.redhat.com/ubi8/openjdk-11` is the image we want to use to build our application (also optional - OpenShift will pick a builder image based on the source code type)
-1. `~https://${GITEA_URL}/${USER}/spring-petclinic#development` is our source code repository - specifically the development branch
+1. `~${GITEA_URL}/${USER}/spring-petclinic#development` is our source code repository - specifically the development branch
 
 In essence, OpenShift is pulling the builder image, copying the source code into it, building the application, and then creating a new container image with our application bundled inside. This is known as a Source-to-Image, or S2I, build. 
 
 #### Step 4
-The build in the previous step will take a few minutes to complete, so let's follow along with it.
+The build in the previous step will take a few minutes to complete, so let's follow along with it. You can also view these components in the web console - but don't forget to change the project you are viewing!
 
 Check out the resources (eg. deployment, service, pods) that have been created:
 ```bash
