@@ -106,7 +106,7 @@ oc get openlibertytraces
 oc exec $PODNAME -- ls /serviceability/$NAMESPACE/$PODNAME
 ```
 
-Read more on observability using the Open Liberty operator here: https://github.com/OpenLiberty/open-liberty-operator/blob/master/doc/observability-deployment.adoc
+Read more on observability using the Open Liberty operator in the [upstream documentation](https://github.com/OpenLiberty/open-liberty-operator/blob/master/doc/observability-deployment.adoc)
 
 #### Stretch Goal
 You may have noticed we did not export the Liberty trace files. How would you go about doing that? Is it possible to view the files without exporting them?
