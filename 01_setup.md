@@ -15,7 +15,7 @@ The bastion host is a Linux VM that includes all tools required to complete the 
 
 Connect to the bastion host using an ssh client (eg. Putty or the built-in ssh client in Windows Subsystem for Linux)
 ```bash
-ssh -l ${USER} ${BASTION_HOST}
+ssh -l $USER $BASTION_HOST
 ```
 
 #### Step 2 - OpenShift Login
