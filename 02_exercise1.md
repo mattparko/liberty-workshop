@@ -68,6 +68,8 @@ You can view the status of all persistent volume claims in your namespace with t
 
 To see all information about the resouce, use the command `oc get pvc demo-app-serviceability -o yaml`. This displays all known information about the OpenShift resource in YAML format, including its definition, metadata, and current status. This sort of detailed output is available for all OpenShift resources that you have authority to view.
 
+You can also view the volume (including YAML!) in the web console. Make sure you select the correct project at the top of the page and then, in the left pane, select `Storage` and `PersistentVolumeClaims`. Select your PVC and check out the details available.
+
 #### Step 3 - Deploy an application
 Now let's deploy a sample Open Liberty application using the Open Liberty Operator. This deployment will use an existing container image with a sample Liberty application pre-baked into it. Notice the various components like the application name, the application image, and the serviceability section, which includes the persistent storage we previously created.
 ```bash
@@ -95,7 +97,9 @@ openlibertyapplication.openliberty.io/demo-app created
 #### Step 4 - View application resources
 Explore your deployed Open Liberty application!
 
-Take a look at the managed Open Liberty application object.
+Head over to the web console and look at some of the resources. You can switch between both Administrator and Developer views to get an idea of what (and how) information is presented in each view.
+
+Jump back into the command line on the bastion host and take a look at the managed Open Liberty application object.
 ```bash
 oc get openlibertyapplications
 oc get openlibertyapplication demo-app -o yaml
@@ -119,8 +123,6 @@ oc get pods
 oc logs <demo-app pod name>
 ```
 
-Head over to the web console and explore your application.
-
 #### Step 5 - Delete some components
 Try to delete some resources. Wait and watch the topology view in the web console to see what happens:
 ```bash
@@ -129,7 +131,7 @@ oc delete route demo-app
 ```
 Why are they not being deleted properly? Hint: what is looking after your Liberty application and all of its components?
 
-We are demonstrating that the Open Liberty operator continues to maintain control of your application's state and resources.
+We are demonstrating here that the Open Liberty operator continues to maintain control of your application's state and resources.
 
 #### Stretch Goal
 Try to scale up the number of deployed pods in your application. You can do this via the Web Console, or with a command like:
