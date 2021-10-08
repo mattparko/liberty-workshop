@@ -2,7 +2,7 @@
 layout: page
 permalink: /liberty-workshop/exercise03
 ---
-__Exercise 3__
+__Exercise 3 - Building from source code__
 
 Now that we have explored the Open Liberty operator, let's take a look at some of features of the OpenShift platform - especially around managing application deployments.
 
@@ -13,7 +13,7 @@ In this exercise we will:
 1. Check the status of an in-flight build
 1. Create a route to expose our application externally
 
-#### Step 1
+#### Step 1 - Fetch source code
 Clone the source code for the Petclinic application and push it into your Gitea repository:
 ```bash
 export GITEA_URL=<Gitea URL from Etherpad>
@@ -34,7 +34,7 @@ git checkout -b development
 git push --set-upstream origin development
 ```
 
-#### Step 2
+#### Step 2 - Create a development namespace
 Now, create a new project in OpenShift. This is where we will build and deploy our new Petclinic application:
 ```bash
 export NAMESPACE=${USER}-petclinic-dev
@@ -42,10 +42,12 @@ export NAMESPACE=${USER}-petclinic-dev
 oc new-project $NAMESPACE
 ```
 
-#### Step 3
+#### Step 3 - Deploy an application from source code
 This is where things start to get interesting!
 
-In this next step we are going to ask OpenShift to create an application for us, however best it sees fit. You can provide as much or as little guidance here and the platform will decide on the best build strategy. Probably not the way you would deploy an application into production, but an excellent way to get developers started as quickly as possible.
+To improve developer productivity, OpenShift can automatically compile, create and deploy an application directly from source code (both via the web console and command line tool). In the next step, we are going to use this powerful feature via the command line.
+
+We are going to direct OpenShift to create an application using the `oc new-app` command. You can provide as much or as little guidance here as you'd like and the platform will decide on the most suitable build strategy. This is likely not the way you would deploy an application into production, but it's an excellent way to get developers started as quickly as possible.
 ```bash
 oc new-app --name=petclinic registry.access.redhat.com/ubi8/openjdk-11~${GITEA_URL}/${USER}/spring-petclinic#development
 ```
@@ -58,7 +60,7 @@ Let's explain what is happening here:
 
 In essence, OpenShift is pulling the builder image, copying the source code into it, building the application, and then creating a new container image with our application bundled inside. This is known as a Source-to-Image, or S2I, build. 
 
-#### Step 4
+#### Step 4 - Observe the build
 The build in the previous step will take a few minutes to complete, so let's follow along with it. You can also view these components in the web console - but don't forget to change the project you are viewing!
 
 Check out the resources (eg. deployment, service, pods) that have been created:
@@ -79,7 +81,7 @@ oc get pods
 oc logs -f petclinic-1-build
 ```
 
-#### Step 5
+#### Step 5 - Create an external route
 Once your build is complete, create a route for your application and check out the result in a web browser:
 ```bash
 oc expose service petclinic
