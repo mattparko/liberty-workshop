@@ -2,7 +2,7 @@
 layout: page
 permalink: /liberty-workshop/exercise02
 ---
-__Exercise 2__
+__Exercise 2 - Open Liberty observability__
 
 You should now have a running application that is being managed by the Open Liberty Operator.
 
@@ -13,7 +13,7 @@ In this exercise we will:
 1. Create an Open Liberty dump using the operator
 1. Create an Open Liberty trace using the operator
 
-#### Step 1
+#### Step 1 - Generate application load
 Let's kick things off by generating some load against out application. The following commands will fetch the application's route name (URL) and then execute 1000 `curl` requests against it:
 ```bash
 export APP_ROUTE=$(oc get route demo-app -o json | jq -r ".spec.host")
@@ -21,7 +21,7 @@ export APP_ROUTE=$(oc get route demo-app -o json | jq -r ".spec.host")
 for (( i=1; i<=1000; i++ )); do curl -s $APP_ROUTE > /dev/null; done
 ```
 
-#### Step 2
+#### Step 2 - View the dashboards
 Now let's check out the monitoring dashboards in OpenShift.
 
 Navigate to the Web Console and select the Developer's perspective (i.e. not the Administrator perspective) in the left pane. If you don't see your application, make sure you have the correct project selected (top left of the main pane).
@@ -30,7 +30,7 @@ In the left pane, select Monitoring. Explore the various dashboards and options,
 
 Click on a dashboard (or select the Metrics tab) to get more detailed views. Click on Show PromQL to see the Prometheus query used for metric collection. You can even temporarily edit the query and re-run it.
 
-#### Step 3
+#### Step 3 - Create a Liberty dump
 We will now create and export a Liberty dump with the assistance of the Open Liberty Operator.
 
 First up, get the application pod name and create environment variables:
@@ -56,7 +56,7 @@ spec:
   podName: $PODNAME" | oc apply -n $NAMESPACE -f -
 ```
 
-#### Step 4
+#### Step 4 - Export the Liberty dump
 Once the Liberty dump has been created when copy it out of the pod onto local storage. The dump only takes a few seconds to complete in this sample application, but you can check the status by running:
 ```bash
 oc get openlibertydump example-dump -o yaml
@@ -85,7 +85,7 @@ oc delete openlibertydump example-dump
 oc exec $PODNAME -- rm -rf /serviceability/$NAMESPACE/$PODNAME
 ```
 
-#### Step 5
+#### Step 5 - Create a Liberty trace
 Now let's create a Liberty trace with the help of the operator. This is very similar to the steps taken to create a Liberty dump, so let's get straight into it:
 ```bash
 # Create the trace

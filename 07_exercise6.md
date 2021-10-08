@@ -2,7 +2,7 @@
 layout: page
 permalink: /liberty-workshop/exercise06
 ---
-__Exercise 6__
+__Exercise 6 - CI pipelines with Tekton__
 
 With our Petclinic application optimised for Liberty and deployed, let's take a look at some automated approaches to help reduce repetition and toil. We're going to create a CI/CD workflow using a feature called OpenShift Pipelines, which itself is based on the upstream open source project - Tekton.
 
@@ -13,7 +13,7 @@ In this exercise we will:
 1. Create a Tekton pipeline
 1. Build and deploy our application using the pipeline
 
-#### Step 1
+#### Step 1 - Preparation
 Before we get stuck into OpenShift Pipelines, let's set up a namespace we can run our pipelines in. This doesn't necessarily need to be a separate namespace, but it can make things neater and more organised. And besides, we are here to practice right?!
 
 First of all, create the namespace:
@@ -82,7 +82,7 @@ stringData:
     https://${USER}:${PASS}@${GITEA_HOSTNAME}" | oc apply -n $NAMESPACE -f -
 ```
 
-#### Step 2
+#### Step 2 - Create a pipeline
 Next we are going to create our Tekton pipeline. A pipeline is made up of tasks, with both the pipeline and the tasks defined in YAML (of course). You can learn more about Tekton from the [official docs](https://docs.openshift.com/container-platform/4.8/cicd/pipelines/understanding-openshift-pipelines.html). There is also a handy comparison between Tekton and Jenkins concepts for those more familiar with Jenkins [here](https://docs.openshift.com/container-platform/4.8/cicd/jenkins-tekton/migrating-from-jenkins-to-tekton.html).
 
 The Tekton YAML manifests have been created already and are stored in GitHub. Clone the repository locally:
@@ -108,7 +108,7 @@ Once complete, create the Tekton pipeline:
 oc apply -f pipeline-spring-tomcat-to-liberty.yaml -n $NAMESPACE
 ```
 
-#### Step 3
+#### Step 3 - Create a test namespace
 Now we are going to set up our test namespace in OpenShift. This is where our Tekton pipeline will stage our application for testing.
 
 Create the namespace:
@@ -123,7 +123,7 @@ Remember though that namespaces are separate projects, with separate service acc
 oc policy add-role-to-user edit system:serviceaccount:${USER}-pipelines:pipeline --rolebinding-name=pipeline-edit -n $NAMESPACE
 ```
 
-#### Step 4
+#### Step 4 - Define a pipeline run
 We are almost ready to execute our pipeline.
 
 OpenShift Pipelines expose a number of variables allowing you to reuse the pipeline with different inputs. When you execute a pipeline, an object known as a PipelineRun is created, which contains all of our populated input variables. Because the PipelineRun is just another Kubernetes object, this allows us to define our own PipelineRun using a YAML manifest, which is then used to execute the pipeline.
@@ -196,7 +196,7 @@ spec:
     emptydir: {}" > ~/my-pipeline-run.yml
 ```
 
-#### Step 5
+#### Step 5 - Execute the pipeline
 Now go ahead and execute the pipeline!
 ```bash
 oc create -f ~/my-pipeline-run.yml

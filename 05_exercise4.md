@@ -2,7 +2,7 @@
 layout: page
 permalink: /liberty-workshop/exercise04
 ---
-__Exercise 4__
+__Exercise 4 - Customising base images__
 
 In this exercise we will spend some time exploring, building, and customising container images.
 
@@ -13,7 +13,7 @@ In this exercise we will:
 1. Take an existing Java application and optimise it for Liberty
 1. Deploy the application into a new development namespace
 
-#### Step 1
+#### Step 1 - Preparation
 First up, let's get some prep tasks out of the way.
 
 Clone the repository containing the container image build files (aka Dockerfiles):
@@ -35,7 +35,7 @@ podman login -u $USER -p openshift $REGISTRY_URL
 
 _Note_: We are using Dockerhub as a read-only, unauthenticated, and anonymous user. We logged in to our private container image registry so that we can push images to it (i.e. upload content).
 
-#### Step 2
+#### Step 2 - Harden a container image
 Now it's time to build our new image and push it to our Nexus registry.
 
 First, take a look at the container file we will use for the build. Notice that, as part of the container build, we are applying the latest patches as well as executing some security hardening scripts. These scripts are taken from the US DoD Iron Bank project, which aims to provide hardened container images.
@@ -61,7 +61,7 @@ You just hardened an Open Liberty container image sourced from Dockerhub and upl
 
 While the Nexus Registry does not perform container image vulnerability scans, the Red Hat Quay image registry does. To illustrate the difference in before and after vulnerability scan results, images have been uploaded to a publicly-viewable Red Hat Quay repository. Head to [quay.io/repository/mparkins/openliberty](https://quay.io/repository/mparkins/openliberty?tab=tags) to check out the results.
 
-#### Step 3
+#### Step 3 - Create a custom application image
 In this step, we will use the hardened image we just created to optimise an existing Spring application for running on Liberty. The resulting optimised application will be packaged into a container using the same image and pushed to our container image registry.
 
 The container build file has already been provided (`~/dockerfiles/Dockerfile.spring-tomcat-to-liberty`). Before moving on, take a second to familiarise yourself with the contents of this build file. Notice the following:
@@ -89,7 +89,7 @@ Once complete, we will again push the final image into our registry:
 podman push ${REGISTRY_URL}/${USER}/petclinic:v1.0.0
 ```
 
-#### Step 4
+#### Step 4 - Deploy our custom application image
 Action time! Let's check out our newly optimised Liberty application.
 
 We'll let the Liberty operator do the hard work again:

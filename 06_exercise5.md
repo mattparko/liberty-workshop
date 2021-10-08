@@ -2,7 +2,7 @@
 layout: page
 permalink: /liberty-workshop/exercise05
 ---
-__Exercise 5__
+__Exercise 5 - GitOps with ArgoCD__
 
 With our application now deployed into Dev, let's have a look at an alternative method of deployment for production. We will look to apply the ideals of GitOps, where the source of truth for our environment is stored in Git, and the environment continuously converges on this desired state.
 
@@ -13,7 +13,7 @@ In this exercise we will:
 1. Set up an individual ArgoCD instance and project
 1. Demonstrate how changes in Git are synchronised in our cluster
 
-#### Step 1
+#### Step 1 - Create a production namespace
 We will kick off by creating a production namespace for ourselves:
 ```bash
 export NAMESPACE=${USER}-petclinic-prod
@@ -21,7 +21,7 @@ export NAMESPACE=${USER}-petclinic-prod
 oc new-project $NAMESPACE
 ```
 
-#### Step 2
+#### Step 2 - Define our Liberty application in Git
 Now let's define our application in Git.
 
 Start by cloning the empty project:
@@ -72,7 +72,7 @@ git commit -m "Add Petclinic application definition"
 git push
 ```
 
-#### Step 3
+#### Step 3 - Setup ArgoCD
 Now that we have our application's source of truth defined in Git, it is time to set up ArgoCD to work its magic. We will be using the ArgoCD operator to deploy and manage our ArgoCD instances and projects.
 
 We are going to take a couple of shortcuts here with two main goals in mind:
@@ -142,7 +142,7 @@ Jump back into the ArgoCD web console and watch your changes take place.
 
 Once your Petclinic application is synchronised, have a quick explore of the OpenShift resources (pods, services, routes, volumes, etc) in your prod namespace. It should all feel very familiar since you've deployed this before. The major difference now is that you defined your Open Liberty application entirely in Git and let the cluster take care of the rest. We'll further explore what this means in practice in the next step.
 
-#### Step 4
+#### Step 4 - Make a change to the application
 Now it's time to make a change to our source of truth. This would likely be a new feature or patched version of our Petclinic application, but let's save that for the next exercise.
 
 Here, we will make a very simple change and increase the number of pods in our application.
