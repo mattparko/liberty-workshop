@@ -54,9 +54,9 @@ type: kubernetes.io/dockerconfigjson" | oc apply -n $NAMESPACE -f -
 
 Now create a link between the registry secret and the relevant service accounts:
 ```bash
-oc secrets link builder nexus-pull-secret --for=pull,mount -n ${USER}-pipelines
+oc secrets link builder nexus-pull-secret --for=pull,mount -n $NAMESPACE
 
-oc secrets link pipeline nexus-pull-secret --for=pull,mount -n ${USER}-pipelines
+oc secrets link pipeline nexus-pull-secret --for=pull,mount -n $NAMESPACE
 ```
 
 Lastly, as we are going to use Tekton to update our production Git repository directly, we also need to include our git credentials. This example uses HTTP basic auth, but this is **strongly** discouraged. It is far better to create a deploy key and use ssh key authentication.

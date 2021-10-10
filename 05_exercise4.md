@@ -59,7 +59,7 @@ podman push ${REGISTRY_URL}/${USER}/openliberty:spring-java8
 
 You just hardened an Open Liberty container image sourced from Dockerhub and uploaded the result to your private container image registry. You can view the uploaded image by visiting the Nexus URL (see Etherpad links), selecting `Browse` in the left pane, and then selecting `registry`.
 
-While the Nexus Registry does not perform container image vulnerability scans, the Red Hat Quay image registry does. To illustrate the difference in before and after vulnerability scan results, images have been uploaded to a publicly-viewable Red Hat Quay repository. Head to [quay.io/repository/mparkins/openliberty](https://quay.io/repository/mparkins/openliberty?tab=tags) to check out the results.
+While the Nexus Registry does not perform container image vulnerability scans, the [Red Hat Quay](https://www.redhat.com/en/technologies/cloud-computing/quay) image registry does. To illustrate the difference in before and after vulnerability scan results, images have been uploaded to a publicly-viewable Red Hat Quay repository. Head to [quay.io/repository/mparkins/openliberty](https://quay.io/repository/mparkins/openliberty?tab=tags) to check out the results.
 
 #### Step 3 - Create a custom application image
 In this step, we will use the hardened image we just created to optimise an existing Spring application for running on Liberty. The resulting optimised application will be packaged into a container using the same image and pushed to our container image registry.
