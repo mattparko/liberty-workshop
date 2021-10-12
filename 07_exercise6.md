@@ -23,7 +23,7 @@ export NAMESPACE=${USER}-pipelines
 oc new-project $NAMESPACE
 ```
 
-Tekton tasks run as individual containers within the OpenShift platform. This enables excellent scale and performance, but it also results in zero resource usage when not executing a pipeline. Since our tasks are run in different containers though, we will need a shared workspace to provide persistent storage between our various Tekton tasks:
+Tekton tasks run as individual containers within the OpenShift platform. This enables excellent scale and performance, but it also results in zero resource usage when not executing a pipeline. Since each of our tasks are run in different containers though, we will need a shared workspace to provide persistent storage between our various Tekton tasks:
 
 Create a new persistent volume claim (PVC):
 ```bash
@@ -39,7 +39,7 @@ spec:
       storage: 2Gi" | oc apply -n $NAMESPACE -f -
 ```
 
-Our Tekton pipeline will build and push images into our private container image repository. This means it needs to know our credentials. There are a number of more secure ways to approach this, but for simplicity we will provide our personal Nexus credentials. These credentials were supplied to podman previously, which helpfully caches them in the exact format needed for the OpenShift secret.
+Our Tekton pipeline will build and push images into our private container image repository. This means it needs to know our credentials. There are a number of more secure ways to approach this, but for simplicity we will provide our personal Nexus credentials. These credentials were supplied to Podman previously, which helpfully caches them in the exact format needed for the OpenShift secret.
 
 Go ahead and create the registry secret:
 ```bash
@@ -126,7 +126,7 @@ oc policy add-role-to-user edit system:serviceaccount:${USER}-pipelines:pipeline
 #### Step 4 - Define a pipeline run
 We are almost ready to execute our pipeline.
 
-OpenShift Pipelines expose a number of variables allowing you to reuse the pipeline with different inputs. When you execute a pipeline, an object known as a PipelineRun is created, which contains all of our populated input variables. Because the PipelineRun is just another Kubernetes object, this allows us to define our own PipelineRun using a YAML manifest, which is then used to execute the pipeline.
+OpenShift Pipelines exposes a number of variables allowing you to reuse the pipeline with different inputs. When you execute a pipeline an object known as a PipelineRun is created, which contains all of our populated input variables. Because the PipelineRun is just another Kubernetes object, this allows us to define our own PipelineRun using a YAML manifest, which is then used to execute the pipeline.
 
 Other approaches to executing a pipeline include using the web console and manually filling out the variables in a form, or using the Tekton CLI tool and including the input values on the command line (see `tkn pipeline start -h`).
 
@@ -218,6 +218,6 @@ Feel free to run the pipeline again - you will see an updated image with a newer
 #### Stretch Goal
 Go have some fun!
 
-Experiment, try out new ideas, try to break something (preferably not your colleagues namespaces though). Now is the time to let your curiosity run wild.
+Experiment, try out new ideas, try to break something (preferably not your colleagues' namespaces though). Now is the time to let your curiosity run wild.
 
-[Previous Exercise](exercise05)
+[Previous Exercise](exercise05) / [Summary](summary)
