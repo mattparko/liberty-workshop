@@ -11,7 +11,7 @@ Once again we'll use the Petclinic application, though of course with another su
 In this exercise we will:
 1. Apply patches and custom security fixes to a container image
 1. Take an existing Java application and optimise it for Liberty
-1. Deploy the application into a new development namespace
+1. Deploy the application into our development namespace
 
 #### Step 1 - Preparation
 First up, let's get some prep tasks out of the way.
