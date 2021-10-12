@@ -61,7 +61,7 @@ spec:
   replicas: 1" > petclinic-olapp.yml
 ```
 
-Notice there is nothing particularly new about these resources - they are very similar to the persistent volume and Open Liberty application created in earlier exercises. The difference now is that we not created the resources in our cluster - we have simply saved their definitions into a text file.
+Notice there is nothing particularly new about these resources - they are very similar to the persistent volume and Open Liberty application created in earlier exercises. The difference now is that we have not created the resources in our cluster - we have simply saved their definitions into text files.
 
 Now, commit and push your changes into git:
 ```bash
@@ -138,7 +138,7 @@ spec:
       selfHeal: true" | oc apply -n $NAMESPACE -f -
 ```
 
-Jump back into the ArgoCD web console and watch your changes take place.
+Jump back into the ArgoCD web console and watch your changes take place. Select the `petclinic` application to view its resources.
 
 Once your Petclinic application is synchronised, have a quick explore of the OpenShift resources (pods, services, routes, volumes, etc) in your prod namespace. It should all feel very familiar since you've deployed this before. The major difference now is that you defined your Open Liberty application entirely in Git and let the cluster take care of the rest. We'll further explore what this means in practice in the next step.
 
@@ -160,11 +160,11 @@ git commit -m "Increase replica count to 2"
 git push
 ```
 
-Now head back over to the ArgoCD console. In the previous steps, we set up ArgoCD to sync automatically and every 30 seconds. Give it a moment and you will see your application start to synchronise, converging on the desired state defined in Git.
+Now head back over to the ArgoCD console. In the previous steps, we set up ArgoCD to sync automatically. Give it a moment and you will see your application start to synchronise, converging on the desired state defined in Git. If you get seriously impatient waiting for the automatic sync, feel free to select the `SYNC` button at the top of the screen.
 
 Once complete, confirm that your Liberty application now has two running pods.
 
-What you just achieved was a change in production via nothing but a Git commit and push. Combine this with a solid CI pipeline and both automated and manual approval gates, suddenly your entire release and lifecycle management processes just became a whole lot easier for all involved.
+What you just achieved was a change in production via nothing but a Git commit and push. Combine this with a solid CI pipeline and both automated and manual approval gates and suddenly your entire release and lifecycle management processes just became a whole lot easier for all involved.
 
 #### Stretch Goal
 Consider the next exercise in its entirety a stretch goal - it's a doozy!
