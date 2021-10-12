@@ -18,6 +18,8 @@ Clone the source code for the Petclinic application and push it into your Gitea 
 ```bash
 export GITEA_URL=<Gitea URL from Etherpad>
 
+cd ~
+
 git clone https://github.com/spring-projects/spring-petclinic
 
 cd spring-petclinic
@@ -80,6 +82,8 @@ oc get pods
 # Use ctrl-c to stop tracking logs at any time
 oc logs -f petclinic-1-build
 ```
+
+_Hint:_ This is a great time to grab a coffee! Expect the build to take around 10 minutes, depending on network conditions (plenty of libraries to download).
 
 #### Step 5 - Create an external route
 Once your build is complete, create a route for your application and check out the result in a web browser:
