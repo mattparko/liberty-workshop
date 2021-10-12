@@ -14,7 +14,7 @@ In this exercise we will:
 1. Deploy an application using the Open Liberty Operator
 
 #### Step 1 - Create a project
-Create an OpenShift project (namespace) and add it to your environment variables.
+On the bastion host (ssh command line), create an OpenShift project (also known as a namespace) and add the project name to your environment variables.
 ```bash
 oc new-project $USER
 
@@ -124,7 +124,7 @@ oc logs <demo-app pod name>
 ```
 
 #### Step 5 - Delete some components
-Try to delete some resources. Wait and watch the topology view in the web console to see what happens:
+Try to delete some resources. Wait and watch the topology view (found in the `</> Developer` perspective) in the web console to see what happens:
 ```bash
 oc delete deployment demo-app
 oc delete route demo-app
