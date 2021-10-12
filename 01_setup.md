@@ -43,11 +43,11 @@ Let's get a little more familiar with navigating around the OpenShift web consol
 
 You should currently be in the Developer view. To confirm, check the left pane - at the top you should see `</> Developer`. OpenShift splits typical tasks for project administrators and developers across different views. This helps to simplify the interface and navigation.
 
-You may notice at the top of the page a message that states `No Projects exist`. This is fine - we will create a project in the next exercise. Click the `Project` dropdown at the very top of the page. This is where and how you will switch between projects in the console. Again, you don't have any project yet - don't worry!
+You may notice at the top of the page a message that states `No Projects exist`. This is fine - we will create a project in the next exercise. Click the `Project` dropdown at the very top of the page. This is where and how you will switch between projects in the console. Again, you don't have any projects yet - don't worry!
 
 We'll come back to the Developer view later, once we have deployed an application. For now, let's explore the administrator view.
 
-Click on the `</> Developer` dropdown at the top of the left pane. Select `Administrator`. In this view, you will be able to explore resources in more detail, like networking, storage, service accounts, and role bindings. You can view these resources once we create our first application.
+Click on the `</> Developer` dropdown at the top of the left pane and select `Administrator`. In this view, you will be able to explore resources in more detail, like networking, storage, service accounts, and role bindings. You can view these resources once we create our first application.
 
 At the very top right of the page you will see a question mark (`?`) symbol. Click on this and select `Command line tools`. You will see a page with links to download and install a number of command line clients, including the OpenShift CLI tool (`oc`), the Helm CLI, and the Tekton CLI. You can always visit and revisit this page to make sure you have a compatible set of command line tools for your cluster.
 
