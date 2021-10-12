@@ -29,3 +29,4 @@ Exercise Links:
 * [Exercise 4 - Customising base images](exercise04)
 * [Exercise 5 - GitOps with ArgoCD](exercise05)
 * [Exercise 6 - CI pipelines with Tekton](exercise06)
+* [Summary](summary)
