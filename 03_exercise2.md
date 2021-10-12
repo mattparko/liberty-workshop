@@ -4,9 +4,9 @@ permalink: /liberty-workshop/exercise02
 ---
 __Exercise 2 - Open Liberty observability__
 
-You should now have a running application that is being managed by the Open Liberty Operator.
+You should now have a running application that is being managed by the Open Liberty operator.
 
-We will now start to explore some additional management and troubleshooting features like monitoring, as well as the Open Liberty Operator tracing and dumping capabilities.
+We will now start to explore some additional management and troubleshooting features like monitoring, as well as the Open Liberty operator tracing and dumping capabilities.
 
 In this exercise we will:
 1. Explore the out-of-the-box monitoring and dashboards
@@ -31,7 +31,7 @@ In the left pane, select Monitoring. Explore the various dashboards and options,
 Click on a dashboard (or select the Metrics tab) to get more detailed views. Click on Show PromQL to see the Prometheus query used for metric collection. You can even temporarily edit the query and re-run it.
 
 #### Step 3 - Create a Liberty dump
-We will now create and export a Liberty dump with the assistance of the Open Liberty Operator.
+We will now create and export a Liberty dump with the assistance of the Open Liberty operator.
 
 First up, get the application pod name and create environment variables:
 ```bash
@@ -57,7 +57,7 @@ spec:
 ```
 
 #### Step 4 - Export the Liberty dump
-Once the Liberty dump has been created when copy it out of the pod onto local storage. The dump only takes a few seconds to complete in this sample application, but you can check the status by running:
+Once the Liberty dump has been created, copy it out of the pod onto local storage. The dump only takes a few seconds to complete in this sample application, but you can check the status by running:
 ```bash
 oc get openlibertydump example-dump -o yaml
 ```
@@ -107,6 +107,11 @@ oc exec $PODNAME -- ls /serviceability/$NAMESPACE/$PODNAME
 ```
 
 Read more on observability using the Open Liberty operator in the [upstream documentation](https://github.com/OpenLiberty/open-liberty-operator/blob/master/doc/observability-deployment.adoc)
+
+Once ready, stop the trace by deleting the resource:
+```bash
+oc delete openlibertytrace example-trace -n $NAMESPACE
+```
 
 #### Stretch Goal
 You may have noticed we did not export the Liberty trace files. How would you go about doing that? Is it possible to view the files without exporting them?
