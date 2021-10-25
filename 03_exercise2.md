@@ -35,7 +35,7 @@ We will now create and export a Liberty dump with the assistance of the Open Lib
 
 First up, get the application pod name and create environment variables:
 ```bash
-export PODNAME=$(oc get pod | grep -i demo-app | awk '{print $1}')
+export PODNAME=$(oc get pod | grep demo-app | tail -1 | awk '{print $1}')
 
 export NAMESPACE=$USER
 ```
